@@ -1,24 +1,19 @@
-version: '3.7'
+version: '3'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+  node:
+    image: node:latest
     volumes:
-      - ./src:/usr/src/app
+      - "./api:/var/www"  
+    ports:
+      - "8080:3000"
     depends_on:
       - mongo
 
   mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
 
-volumes:
-  mongodb_data:
-    driver: local
