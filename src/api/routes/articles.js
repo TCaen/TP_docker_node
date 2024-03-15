@@ -6,5 +6,6 @@ router.get('/', ArticlesController.list);
 router.post('/',  ArticlesController.save);
 router.get('/:id', ArticlesController.byId);
 router.put('/:postid',  ArticlesController.update);
+router.delete('/:postid',  ArticlesController.remove);
 
 export default router;

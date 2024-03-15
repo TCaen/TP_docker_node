@@ -54,23 +54,24 @@ async function byId(req, res, next) {
 }
 
 async function update(req, res, next) {
-    const articleId = req.body.id;
-    console.log("valeur req by id :" + req.body.id);
-    console.log("valeur req by id :" + req.body.title);
-    console.log("valeur req by id :" + req.body.description);
-    console.log("valeur req by id :" + req.body.editor);
+
     try {
-        const articleId = req.params.id;
+        const articleId = req.body.id;
+
+        console.log("valeur req by id :" + req.body.id);
+        console.log("valeur req by id :" + req.body.title);
+        console.log("valeur req by id :" + req.body.description);
+        console.log("valeur req by id :" + req.body.editor);
+        console.log("valeur articleId :" + articleId);
+
+        const article = await ArticleModel.findById(articleId);
 
 
+        article.title = req.body.title;
+        article.description = req.body.description;
+        article.editor = req.body.editor;
 
-        const articles = await ArticleModel.findById(articleId);
-
-        articles.title = req.body.title;
-        articles.description = req.body.description;
-        articles.editor = req.body.editor;
-
-        await articles.save();
+        await article.save();
 
         return res.status(201).json({
             status: 201
@@ -83,6 +84,37 @@ async function update(req, res, next) {
     }
 }
 
+// async function remove(req, res, next) {
+//     try {
+//         const { id } = req.params;
+//         const article = await ArticleModel.findByIdAndDelete(id);
+//         if (!article) {
+//             return res.status(404).json({
+//                 message: 'Article not found'
+//             });
+//         }
+//         return res.status(200).json({
+//             status: 200,
+//             message: 'Article deleted successfully'
+//         });
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }
+
+async function remove(req, res, next) {
+    try {
+        const { id } = req.params;
+        await ArticleModel.deleteOne(id);
+
+        return res.status(200).json({
+            status: 200,
+            message: 'Article deleted successfully'
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
 // async function update(req, res, next) {
 //     const articleId = req.body.id;
 //     try {
@@ -139,5 +171,6 @@ export default {
     list: list,
     save: save,
     byId: byId,
-    update: update
+    update: update,
+    remove:remove
 };
