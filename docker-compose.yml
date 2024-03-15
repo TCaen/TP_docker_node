@@ -12,10 +12,10 @@ services:
   articles_api:
     build: .
     ports:
-      - 4000:3000
+      - 4000:4000
     environment:
       APP_NAME: articles_api
-      PORT: 3000
+      PORT: 4000
       DB_URI: mongodb://mongo_db:27017/articles_api
     depends_on:
       - mongo_db
