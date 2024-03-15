@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 
 const ArticlesSchema = new mongoose.Schema({
-    _id:{
-        type:String
-    },
+
     title:{
         type: String,
         required: true

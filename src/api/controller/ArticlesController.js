@@ -56,15 +56,24 @@ async function byId(req, res, next) {
 async function update(req, res, next) {
 
     try {
+        // const articleId = req.body.id;
+
+        // console.log("valeur req by id :" + req.body.id);
+        // console.log("valeur req by id :" + req.body.title);
+        // console.log("valeur req by id :" + req.body.description);
+        // console.log("valeur req by id :" + req.body.editor);
+        // console.log("valeur articleId :" + articleId);
+
+        // const article = await ArticleModel.findById(articleId);
+
         const articleId = req.body.id;
+        const updatedArticle = {
+            title: req.body.title,
+            description: req.body.description,
+            editor: req.body.editor
+        };
 
-        console.log("valeur req by id :" + req.body.id);
-        console.log("valeur req by id :" + req.body.title);
-        console.log("valeur req by id :" + req.body.description);
-        console.log("valeur req by id :" + req.body.editor);
-        console.log("valeur articleId :" + articleId);
-
-        const article = await ArticleModel.findById(articleId);
+        const article = await ArticleModel.findOneAndUpdate({ _id: articleId }, updatedArticle, { new: true });
 
 
         article.title = req.body.title;
@@ -172,5 +181,5 @@ export default {
     save: save,
     byId: byId,
     update: update,
-    remove:remove
+    remove: remove
 };
