@@ -1,7 +1,8 @@
 import ArticleModel from '../models/ArticleModel.js'
 
-async function list(res) {
+async function list(req, res, next) {
     try{
+        console.log('NOUS LANCONS LA METHODE LIST  '+ res);
         const articles = await ArticleModel.find();
         return res.status(200).json({
             status: 200,
