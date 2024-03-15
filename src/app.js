@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/articles', articleRoutes);
+app.use('/posts', articleRoutes);
 
 await connectToDB();
 
